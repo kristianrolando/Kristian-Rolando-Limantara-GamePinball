@@ -10,7 +10,7 @@ public class CoinController : MonoBehaviour
     [SerializeField] float _timeSpawn = 3f;
     [SerializeField] int maxCoinInScene = 3;
 
-
+    [HideInInspector]
     public List<GameObject> _coinList = new List<GameObject>();
 
     private void Start()

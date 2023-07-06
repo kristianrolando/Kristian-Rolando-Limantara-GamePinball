@@ -12,6 +12,9 @@ public class GameplayScene : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 
 }
