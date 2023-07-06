@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Bumper : MonoBehaviour
 {
+    [SerializeField] Material[] _material;
     [SerializeField] float multipler = 3;
-    private Animator anim;
-    Color _baseColor;
+    
+    Animator anim;
+    MeshRenderer _mesh;
+    int id;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        _baseColor = GetComponent<MeshRenderer>().material.color;
+        _mesh = GetComponent<MeshRenderer>();
+        ChangeColor();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -20,14 +24,14 @@ public class Bumper : MonoBehaviour
         {
             collision.gameObject.GetComponent<Rigidbody>().velocity *= multipler;
             anim.Play("bumber_bounce_anim");
-            GetComponent<MeshRenderer>().material.color = Color.blue;
-            StartCoroutine(ChangeColor(_baseColor));
+            ChangeColor();
         }
     }
-
-    IEnumerator ChangeColor(Color _color)
+    private void ChangeColor()
     {
-        yield return new WaitForSeconds(0.3f);
-        GetComponent<MeshRenderer>().material.color = _color;
+        _mesh.material = _material[id];
+        id++;
+        if (id >= _material.Length)
+            id = 0;
     }
 }
